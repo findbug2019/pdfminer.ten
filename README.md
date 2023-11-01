@@ -1,13 +1,12 @@
-pdfminer.six
+pdfminer.ten
 ============
 
 [![Continuous integration](https://github.com/pdfminer/pdfminer.six/actions/workflows/actions.yml/badge.svg)](https://github.com/pdfminer/pdfminer.six/actions/workflows/actions.yml)
 [![PyPI version](https://img.shields.io/pypi/v/pdfminer.six.svg)](https://pypi.python.org/pypi/pdfminer.six/)
 [![gitter](https://badges.gitter.im/pdfminer-six/Lobby.svg)](https://gitter.im/pdfminer-six/Lobby?utm_source=badge&utm_medium)
 
-*We fathom PDF*
 
-Pdfminer.six is a community maintained fork of the original PDFMiner. It is a tool for extracting information from PDF
+Pdfminer.ten is a community maintained fork of the original PDFMiner.six It is a tool for extracting information from PDF
 documents. It focuses on getting and analyzing text data. Pdfminer.six extracts the text from a page directly from the
 sourcecode of the PDF. It can also be used to get the exact location, font or color of the text.
 
