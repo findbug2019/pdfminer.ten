@@ -86,6 +86,10 @@ class LAParams:
         boxes_flow: Optional[float] = 0.5,
         detect_vertical: bool = False,
         all_texts: bool = False,
+        line_font: bool = False,
+        line_fontsize: bool = False,
+        line_fontcs: bool = False,
+
     ) -> None:
         self.line_overlap = line_overlap
         self.char_margin = char_margin
@@ -94,7 +98,9 @@ class LAParams:
         self.boxes_flow = boxes_flow
         self.detect_vertical = detect_vertical
         self.all_texts = all_texts
-
+        self.line_font = line_font
+        self.line_fontsize = line_fontsize
+        self.line_fontcs = line_fontcs
         self._validate()
 
     def _validate(self) -> None:
@@ -193,7 +199,21 @@ class LTComponent(LTItem):
     def is_voverlap(self, obj: "LTComponent") -> bool:
         assert isinstance(obj, LTComponent), str(type(obj))
         return obj.y0 <= self.y1 and self.y0 <= obj.y1
-
+            
+    def is_samefont(self, obj: "LTComponent", laparams: LAParams) -> bool:
+        assert isinstance(obj, LTComponent), str(type(obj))
+        if laparams.line_font == True and laparams.line_fontsize == True :
+            return obj.font == self.font and obj.size == self.size
+        else:
+            return True
+        
+    def is_samecs(self, obj: "LTComponent", laparams: LAParams) -> bool:
+        assert isinstance(obj, LTComponent), str(type(obj))
+        
+            return obj.ncs == self.ncs and obj.ncs == self.ncs
+        else:
+            return True
+        
     def vdistance(self, obj: "LTComponent") -> float:
         assert isinstance(obj, LTComponent), str(type(obj))
         if self.is_voverlap(obj):
@@ -777,6 +797,12 @@ class LTLayoutContainer(LTContainer[LTComponent]):
                     and obj0.hdistance(obj1)
                     < max(obj0.width, obj1.width) * laparams.char_margin
                 )
+                if laparams.line_fontcs == True and obj.ncs != obj1.ncs:
+                    halign = False
+                if laparams.line_font == True and obj.font != obj1.font:
+                    halign = False
+                if laparams.line_fontsize == True and obj.fonts  != obj1.fontsize:
+                    halign = False                
 
                 # valign: obj0 and obj1 is vertically aligned.
                 #
@@ -801,7 +827,13 @@ class LTLayoutContainer(LTContainer[LTComponent]):
                     and obj0.vdistance(obj1)
                     < max(obj0.height, obj1.height) * laparams.char_margin
                 )
-
+                if laparams.line_fontcs == True and obj.ncs != obj1.ncs:
+                    valign = False
+                if laparams.line_font == True and obj.font != obj1.font:
+                    valign = False
+                if laparams.line_fontsize == True and obj.fontsize != obj1.fontsize:
+                    valign = False 
+                    
                 if (halign and isinstance(line, LTTextLineHorizontal)) or (
                     valign and isinstance(line, LTTextLineVertical)
                 ):
