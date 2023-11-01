@@ -19,8 +19,8 @@ Check out the full documentation on
 
 Features
 --------
-* support line font and size extraction.
-* support line color extraction.
+* Support line font and size extraction.
+* Support line color extraction.
 * Written entirely in Python.
 * Parse, analyze, and convert PDF documents.
 * Extract content as text, images, html or [hOCR](https://en.wikipedia.org/wiki/HOCR).
